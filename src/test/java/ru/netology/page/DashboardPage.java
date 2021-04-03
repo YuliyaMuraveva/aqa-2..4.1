@@ -32,7 +32,7 @@ public class DashboardPage {
     }
 
     public int getCardBalance(String id) {
-        var text = cards.find(visible).$(By.tagName("[data-test-id=" + id + "]")).text();
+        var text = $("[data-test-id='" + id + "']").text();
         return extractBalance(text);
     }
 
