@@ -1,5 +1,6 @@
 package ru.netology.test;
 
+import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
 import ru.netology.page.TransferPage;
 
+import static com.codeborne.selenide.Selectors.withText;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,5 +48,15 @@ public class TransferTest {
         transferPage.transfer(sum, "5559 0000 0000 0001");
         int firstCardBalance = dashboardPage.getCardBalance("0f3f5c2a-249e-4c3d-8287-09f7a039391d");
         assertEquals(expected, firstCardBalance);
+    }
+
+    @Test
+    void shouldGetNotification() {
+        val dashboardPage = new DashboardPage();
+        String sum = Integer.toString(dashboardPage.getCardBalance("92df3f1c-a033-48e6-8390-206f6b1f56c0") + 1);
+        dashboardPage.topUpCard2();
+        val transferPage = new TransferPage();
+        transferPage.transfer(sum, "5559 0000 0000 0001");
+        $("[data-test-id=error-notification]").$(withText("Ошибка")).shouldBe(Condition.visible);
     }
 }
