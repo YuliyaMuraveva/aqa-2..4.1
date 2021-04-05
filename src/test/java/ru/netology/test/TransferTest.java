@@ -2,7 +2,6 @@ package ru.netology.test;
 
 import com.codeborne.selenide.Condition;
 import lombok.val;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
